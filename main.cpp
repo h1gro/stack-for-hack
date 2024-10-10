@@ -16,6 +16,7 @@ int main()
     StackPush(&stk, 3);
     StackPush(&stk, 4);
     StackPush(&stk, 5);
+    StackPop(&stk);
 
     int dump_call = INFO_PRINT;
     StackDump(&stk, __func__, __FILE__, __LINE__, dump_call);

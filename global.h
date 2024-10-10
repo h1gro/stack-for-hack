@@ -41,14 +41,16 @@ enum errors_t
     CANARY2_BUF_ERROR   = 8,
     CANARY1_STR_ERROR   = 9,
     CANARY2_STR_ERROR   = 10,
-    MY_ERROR            = 11
+    MY_ERROR            = 11,
+    MY_PUSH_ERROR       = 20
 };
 
 enum stack
 {
     CAPACITY     = 3,
     CAPAC_RESIZE = 2,
-    CAPAC_SHIFT  = 4
+    CAPAC_SHIFT  = 4,
+    SIZE_OF_ELEM = 1
 };
 
 enum call_funcs
@@ -81,6 +83,7 @@ struct stack_t
     int capacity;
     int error_code;
     FILE *output;
+    int error_code_h;
 #ifdef DEBUG
     stackelem_t canary2;
 #endif

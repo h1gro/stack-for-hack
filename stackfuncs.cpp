@@ -99,16 +99,23 @@ void ResizeIf(struct stack_t *stk, int pop_or_push)
     printf("pop_or_push = %d\n", pop_or_push);
     if (pop_or_push == PUSH && stk->size == stk->capacity)
     {
+        size_t elem_size = sizeof(stackelem_t);
+        stk->error_code_h++;
+
+        if (stk->error_code_h == MY_PUSH_ERROR)
+        {
+            elem_size = SIZE_OF_ELEM;
+        }
+
         stk->data[stk->capacity] = POISON;
         stk->capacity = stk->capacity * CAPAC_RESIZE;
-        stk->data = (stackelem_t*) realloc(stk->data - NUM_CANARIES_IN_LEFT, (stk->capacity + NUM_CANARIES_BUF) * sizeof(stackelem_t)) + NUM_CANARIES_IN_LEFT;
+        stk->data = (stackelem_t*) realloc(stk->data - NUM_CANARIES_IN_LEFT, (stk->capacity + NUM_CANARIES_BUF) * elem_size) + NUM_CANARIES_IN_LEFT;
 
         FillingDataPoison(stk->data + stk->size, stk->capacity - stk->size);
 
         stk->data[stk->capacity] = CANARY;
 
         stk->size--;
-
         printf("push cap = %d\n", stk->capacity);
     }
 
